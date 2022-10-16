@@ -1,0 +1,29 @@
+
+name: publish bundles
+
+on:
+  push:
+    branches:
+      - "dev"
+    tags:
+      - "*"
+
+jobs:
+  publish:
+    timeout-minutes: 10
+    strategy:
+      matrix:
+        go-version: [1.16.x]
+        os: [ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@master
+        with:
+          ref: dev
+          fetch-depth: 1
+      - name: install opa
+        run: wget https://github.com/open-policy-agent/opa/releases/download/v0.43.0/opa_linux_amd64 -O ./opa && chmod +x ./opa
+      - name: Make blockami bundle
+        run: mkdir bundles && cd blockami && tar czvf ../bundles/blockami-bundle.tar.gz ./ 
+      - name: test blockami bundle
+        run: ./opa test --bundle ./bundles/blockami-bundle.tar.gz

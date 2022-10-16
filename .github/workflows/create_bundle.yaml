@@ -1,0 +1,55 @@
+
+name: publish bundles
+
+on:
+  push:
+    branches:
+      - "main"
+    tags:
+      - "*"
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow one concurrent deployment
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+  
+jobs:
+  publish:
+    timeout-minutes: 10
+    strategy:
+      matrix:
+        go-version: [1.16.x]
+        os: [ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    environment:
+      name: blockami-bundles
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@master
+        with:
+          fetch-depth: 1
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+      - name: install opa
+        run: wget https://github.com/open-policy-agent/opa/releases/download/v0.43.0/opa_linux_amd64 -O ./opa && chmod +x ./opa
+      - name: Make blockami bundle
+        run: mkdir bundles && tar czvf bundles/blockami-bundle.tar.gz ./blockami
+      # - name: test blockami bundle
+      #   run: ./opa test --bundle ./bundles/blockami-bundle.tar.gz
+      - name: Setup Pages
+        uses: actions/configure-pages@v1
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v1
+        with:
+          # Upload entire repository
+          path: ./bundles/
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@main
