@@ -7,7 +7,7 @@ events[e] {
     input.logs[deposit].information.parameters[amountDeposit].name in ["wad", "value"]
     
     e := {
-        "priority": 100,
+        "priority": 110,
         "name": "wrap_token",
         "additional_info": {
             "input": {
@@ -23,7 +23,7 @@ events[e] {
     input.logs[withdraw].information.parameters[amountWithdraw].name in ["wad", "value"]
     
     e := {
-        "priority": 100,
+        "priority": 110,
         "name": "unwrap_token",
         "additional_info": {
             "input": {
