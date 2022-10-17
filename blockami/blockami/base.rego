@@ -36,43 +36,43 @@ events[e] {
 }
 
 events[e] {    
-    input.logs[transferTo].information.name == "Transfer"
-    input.logs[transferTo].information.parameters[amount].name in ["wad", "value", "value"]
-    input.logs[transferTo].information.parameters[from].name in ["src", "from"]
-	input.logs[transferTo].information.parameters[from].value == input.address
-    input.logs[transferTo].information.parameters[to].name in ["dst", "to"]
+    input.logs[transfer].information.name == "Transfer"
+    input.logs[transfer].information.parameters[amount].name in ["wad", "value", "_value"]
+    input.logs[transfer].information.parameters[from].name in ["src", "from", "_from"]
+	input.logs[transfer].information.parameters[from].value == input.address
+    input.logs[transfer].information.parameters[to].name in ["dst", "to", "_to"]
 
     e := {
         "priority": 100,
     	"name": "transfer_token",
         "value": {
-        	"amount": input.logs[transferTo].information.parameters[amount].value,
-        	"token": input.logs[transferTo].raw_data.contract
+        	"amount": input.logs[transfer].information.parameters[amount].value,
+        	"token": input.logs[transfer].raw_data.contract
         },
         "additional_info": {
-            "from": input.logs[transferTo].information.parameters[from].value,
-            "to": input.logs[transferTo].information.parameters[to].value
+            "from": input.logs[transfer].information.parameters[from].value,
+            "to": input.logs[transfer].information.parameters[to].value
         }
     }
 }
 
 events[e] {    
-    input.logs[transferTo].information.name == "Transfer"
-    input.logs[transferTo].information.parameters[amount].name in ["wad", "value", "value"]
-    input.logs[transferTo].information.parameters[from].name in ["src", "from"]
-    input.logs[transferTo].information.parameters[to].name in ["dst", "to"]
-	input.logs[transferTo].information.parameters[to].value == input.address
+    input.logs[transfer].information.name == "Transfer"
+    input.logs[transfer].information.parameters[amount].name in ["wad", "value", "_value"]
+    input.logs[transfer].information.parameters[from].name in ["src", "from", "_from"]
+    input.logs[transfer].information.parameters[to].name in ["dst", "to", "_to"]
+	input.logs[transfer].information.parameters[to].value == input.address
 
     e := {
         "priority": 100,
     	"name": "transfer_token",
         "value": {
-        	"amount": input.logs[transferTo].information.parameters[amount].value,
-        	"token": input.logs[transferTo].raw_data.contract
+        	"amount": input.logs[transfer].information.parameters[amount].value,
+        	"token": input.logs[transfer].raw_data.contract
         },
         "additional_info": {
-            "from": input.logs[transferTo].information.parameters[from].value,
-            "to": input.logs[transferTo].information.parameters[to].value
+            "from": input.logs[transfer].information.parameters[from].value,
+            "to": input.logs[transfer].information.parameters[to].value
         }
     }
 }
