@@ -9,7 +9,7 @@ import future.keywords.in
 #Swap ETH to Token
 events[e] {
     input.logs[transferOut].information.name == "Transfer"
-    input.logs[transferOut].information.parameters[amountFrom].name in ["wad", "amount", "value"]
+    input.logs[transferOut].information.parameters[amountFrom].name in ["wad", "amount", "value", "_value"]
     input.logs[transferOut].information.parameters[to].name in ["dst", "to", "_to"]
 	input.logs[transferOut].information.parameters[to].value == input.address
 
@@ -39,7 +39,7 @@ events[e] {
 #Swap token to other token
 events[e] {    
     input.logs[transferFrom].information.name == "Transfer"
-    input.logs[transferFrom].information.parameters[amountFrom].name in ["wad", "value", "value"]
+    input.logs[transferFrom].information.parameters[amountFrom].name in ["wad", "value", "value", "_value"]
     input.logs[transferFrom].information.parameters[from].name in ["src", "from", "_from"]
 	input.logs[transferFrom].information.parameters[from].value == input.address
 
@@ -73,7 +73,7 @@ events[e] {
 #Swap token to ETH
 events[e] {    
     input.logs[transferFrom].information.name == "Transfer"
-    input.logs[transferFrom].information.parameters[amountFrom].name in ["wad", "value", "value"]
+    input.logs[transferFrom].information.parameters[amountFrom].name in ["wad", "value", "value", "_value"]
     input.logs[transferFrom].information.parameters[from].name in ["src", "from", "_from"]
 	input.logs[transferFrom].information.parameters[from].value == input.address
     
