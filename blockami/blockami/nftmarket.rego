@@ -15,11 +15,13 @@ events[e] {
 	input.logs[transfer].information.parameters[tokenId].name in ["tokenId"]
     e := {
         "priority": 1000,
-        "name": "sold_nft",
+        "name": "transfer_nft",
         "additional_info": {
             "type": "ERC721",
             "collection": input.logs[transfer].raw_data.contract,
-            "nft_id": input.logs[transfer].information.parameters[tokenId].value
+            "nft_id": input.logs[transfer].information.parameters[tokenId].value,
+            "from": input.logs[transfer].information.parameters[from].value,
+            "to": input.logs[transfer].information.parameters[to].value
         }
     }
 }
@@ -36,11 +38,13 @@ events[e] {
 	input.logs[transfer].information.parameters[tokenId].name in ["tokenId"]
     e := {
         "priority": 1000,
-        "name": "buy_nft",
+        "name": "transfer_nft",
         "additional_info": {
             "type": "ERC721",
             "collection": input.logs[transfer].raw_data.contract,
-            "nft_id": input.logs[transfer].information.parameters[tokenId].value
+            "nft_id": input.logs[transfer].information.parameters[tokenId].value,
+            "from": input.logs[transfer].information.parameters[from].value,
+            "to": input.logs[transfer].information.parameters[to].value
         }
     }
 }
@@ -59,12 +63,14 @@ events[e] {
     input.logs[transfer].information.parameters[value].name in ["value", "_value"]
     e := {
         "priority": 1000,
-        "name": "sold_nft",
+        "name": "transfer_nft",
         "additional_info": {
             "type": "ERC1155",
             "collection": input.logs[transfer].raw_data.contract,
             "nft_id": input.logs[transfer].information.parameters[id].value,
-            "nft_amount": input.logs[transfer].information.parameters[value].value
+            "nft_amount": input.logs[transfer].information.parameters[value].value,
+            "from": input.logs[transfer].information.parameters[from].value,
+            "to": input.logs[transfer].information.parameters[to].value
         }
     }
 }
@@ -83,12 +89,14 @@ events[e] {
     input.logs[transfer].information.parameters[value].name in ["value", "_value"]
     e := {
         "priority": 1000,
-        "name": "buy_nft",
+        "name": "transfer_nft",
         "additional_info": {
             "type": "ERC1155",
             "collection": input.logs[transfer].raw_data.contract,
             "nft_id": input.logs[transfer].information.parameters[id].value,
-            "nft_amount": input.logs[transfer].information.parameters[value].value
+            "nft_amount": input.logs[transfer].information.parameters[value].value,
+            "from": input.logs[transfer].information.parameters[from].value,
+            "to": input.logs[transfer].information.parameters[to].value
         }
     }
 }
@@ -107,7 +115,7 @@ events[e] {
 
     e := {
         "priority": 100,
-    	"name": "buy_nft",
+    	"name": "transfer_nft",
         "additional_info": {
             "type": "ERC1155",
             "collection": input.logs[transfer].raw_data.contract,
@@ -132,7 +140,7 @@ events[e] {
 
     e := {
         "priority": 100,
-    	"name": "sold_nft",
+    	"name": "transfer_nft",
         "additional_info": {
             "type": "ERC1155",
             "collection": input.logs[transfer].raw_data.contract,
