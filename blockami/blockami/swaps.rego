@@ -44,8 +44,8 @@ events[e] {
 	input.logs[transferFrom].information.parameters[from].value == input.address
 
     input.logs[transferTo].information.name == "Transfer"
-    input.logs[transferTo].information.parameters[amountTo].name in ["wad", "value", "value"]
-    input.logs[transferTo].information.parameters[dst].name in ["dst", "to"]
+    input.logs[transferTo].information.parameters[amountTo].name in ["wad", "value", "value", "_value"]
+    input.logs[transferTo].information.parameters[dst].name in ["dst", "to", "_to"]
 	input.logs[transferTo].information.parameters[dst].value == input.address
     
     input.logs[transferFrom].raw_data.contract != input.logs[transferTo].raw_data.contract
