@@ -10,7 +10,7 @@ import future.keywords.in
 events[e] {
     input.logs[transferOut].information.name == "Transfer"
     input.logs[transferOut].information.parameters[amountFrom].name in ["wad", "amount", "value"]
-    input.logs[transferOut].information.parameters[to].name in ["dst", "to"]
+    input.logs[transferOut].information.parameters[to].name in ["dst", "to", "_to"]
 	input.logs[transferOut].information.parameters[to].value == input.address
 
     input.logs[deposit].information.name == "Deposit"
@@ -40,7 +40,7 @@ events[e] {
 events[e] {    
     input.logs[transferFrom].information.name == "Transfer"
     input.logs[transferFrom].information.parameters[amountFrom].name in ["wad", "value", "value"]
-    input.logs[transferFrom].information.parameters[from].name in ["src", "from"]
+    input.logs[transferFrom].information.parameters[from].name in ["src", "from", "_from"]
 	input.logs[transferFrom].information.parameters[from].value == input.address
 
     input.logs[transferTo].information.name == "Transfer"
@@ -74,7 +74,7 @@ events[e] {
 events[e] {    
     input.logs[transferFrom].information.name == "Transfer"
     input.logs[transferFrom].information.parameters[amountFrom].name in ["wad", "value", "value"]
-    input.logs[transferFrom].information.parameters[from].name in ["src", "from"]
+    input.logs[transferFrom].information.parameters[from].name in ["src", "from", "_from"]
 	input.logs[transferFrom].information.parameters[from].value == input.address
     
     input.logs[withdrawal].information.name == "Withdrawal"
